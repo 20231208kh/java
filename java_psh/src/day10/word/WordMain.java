@@ -2,7 +2,6 @@ package day10.word;
 
 import java.util.Scanner;
 
-import day10.board.Board;
 
 public class WordMain {
 
@@ -89,6 +88,7 @@ public class WordMain {
 	private static Word [] wordList = new Word[50];
 	private static int count = 0;
 	private static int failcount =0;
+
 	public static void main(String[] args) {
 		
 		int	menu;
@@ -296,6 +296,8 @@ public class WordMain {
 		failcount++;
 	}
 	
+
+	
 	
 	/**
 	 * @param failTestList 오답노트를 출력하는 메서드
@@ -307,16 +309,21 @@ public class WordMain {
 				wordList[i].failTestPrint();
 			}
 		}
-		System.out.print("오답 노트 시험을 시작하시겠습니까?Y(0)/N(1)");
-		int user = scan.nextInt();
-		if(user==0) {
-			failTestTest();
-		}else {
-			System.out.println("오답 노트 시험을 시작하지않습니다.");
+		if(failcount >0) {
+			System.out.println("오답 노트 시험을 시작하시겠습니까?Y(0)/N(1)");
+			int user = scan.nextInt();
+			if(user==0) {
+				failTestTest();
+			}else {
+				System.out.println("오답 노트 시험을 시작하지않습니다.");
+			}
 		}
 		
 	
 	}
+	/**
+	 * @param failTestTest 오답 노트로 시험치는 메서드
+	 */
 	private static void failTestTest() {
 		System.out.println("----오답노트로 시험치기----");
 		if(failcount>0) {	
