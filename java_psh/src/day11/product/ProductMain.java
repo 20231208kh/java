@@ -2,7 +2,6 @@ package day11.product;
 
 import java.util.Scanner;
 
-import day10.word.Word;
 
 public class ProductMain {
 	public static Scanner scan = new Scanner(System.in);

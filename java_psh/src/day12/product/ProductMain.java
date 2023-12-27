@@ -74,7 +74,12 @@ public class ProductMain {
 		}
 	}
 	
+	//조회
 	public static void searchProduct() {
+		if (count ==0) {
+			System.out.println("등록된 제품이 없습니다.");
+			return;
+		}
 		for(int i=0;i<count;i++) {
 			productList[i].printInfo();
 		}
