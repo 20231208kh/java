@@ -108,12 +108,25 @@ public class WordProgram implements Program{
 	// 단어 추가
 	public void insertWord() {
 		//단어 입력, 뜻 입력, 품사 입력
+		List<Means> meanList = new ArrayList<Means>();
+		System.out.print("단어 : ");
+		String word = scan.next();
+		Word tmp = new Word(word);
+		if(wordList.contains(tmp)) {
+			System.out.println("중복된 단어");
+			return;
+		}
+		System.out.print("품사 : ");
+		String wordClass = scan.next();
+		System.out.print("뜻 : ");
+		scan.nextLine();
+		String mean = scan.nextLine();
+		Means means = new Means(wordClass,mean);
+		meanList.add(means);
+		tmp.setMean(meanList);
+		wordList.add(tmp);
+		System.out.println(meanList);
 
-		//인스턴스 생성
-
-		//중복 확인
-
-		//중복 아닐시 wordList에 인스턴스 저장
 
 	}
 	//단어 수정
@@ -281,12 +294,17 @@ public class WordProgram implements Program{
 
 	//단어 퀴즈
 	public void wordQuiz() {
+		if (wordList.size()<=0) {
+			System.out.println("먼저 단어를 추가해주세요.");
+			return;
+		}
+		
 		for (int i=0; i<wordList.size();i++) {
 			quiz.add(i);
 		}
 		String user="";
-		int min1 =0, max1 = quiz.size()-1;
-		do {
+		while(quiz.size()!=0) {
+			int min1 =0, max1 = quiz.size()-1;
 			int r1 = (int)(Math.random()*(max1-min1+1)+min1);
 			int r2 = quiz.remove(r1);
 			List<Means> answer= wordList.get(r2).getMean();
@@ -294,14 +312,15 @@ public class WordProgram implements Program{
 			System.out.println("문제 : "+quiz);
 			System.out.print("뜻을 입력하세요 : ");
 			user = scan.next();
-			if (answer.contains(user)) {
+			Means tmp1 = new Means("",user);
+			if (answer.contains(tmp1)) {
 				System.out.println("정답입니다.");
 			}else {
 				System.out.println("틀렸습니다.");
-				Word tmp = new Word(user,answer);
+				Word tmp = new Word(quiz,answer);
 				failList.add(tmp);
 			}
-		}while(!user.equals("종료"));
+		}
 	}
 
 	//오답 노트
