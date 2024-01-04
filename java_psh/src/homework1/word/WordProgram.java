@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class WordProgram implements Program{
 	private Scanner scan = new Scanner(System.in);
 	private final int EXIT = 5;
+	private WordManager wm = new WordManager();
 	private List<Word> wordList = new ArrayList<Word>();
 	private List<Word> failList = new ArrayList<Word>();
 	private List<Integer> quiz = new ArrayList<Integer>();
@@ -104,16 +105,16 @@ public class WordProgram implements Program{
 
 
 	}
+	
 
 	// 단어 추가
 	public void insertWord() {
 		//단어 입력, 뜻 입력, 품사 입력
-		List<Means> meanList = new ArrayList<Means>();
 		System.out.print("단어 : ");
 		String word = scan.next();
-		Word tmp = new Word(word);
-		if(wordList.contains(tmp)) {
-			System.out.println("중복된 단어");
+		Word wordTmp = new Word(word);
+		if(wm.askContain(wordTmp)) {
+			System.out.println("중복된 단어입니다.");
 			return;
 		}
 		System.out.print("품사 : ");
@@ -121,32 +122,40 @@ public class WordProgram implements Program{
 		System.out.print("뜻 : ");
 		scan.nextLine();
 		String mean = scan.nextLine();
-		Means means = new Means(wordClass,mean);
-		meanList.add(means);
-		tmp.setMean(meanList);
-		wordList.add(tmp);
-		System.out.println(meanList);
-
-
+		wm.insertWord(wordTmp, wordClass, mean);
+		System.out.println(wm.getWordList());
 	}
+	
 	//단어 수정
 	public void updateWord() {
 		//단어 입력
-
-		//wordList에 몇번째 인덱스에 있는지 확인
-
+		System.out.print("단어 : ");
+		String word = scan.next();
+		Word tmp = new Word(word);
+		if(!wm.askContain(tmp)) {
+			System.out.println("없는 단어입니다.");
+			return;
+		}
 		//수정할 값 입력
-
-		//입력된 값이 기존의 wordList[index]와 같은지 확인
-
-		//같지 않다면 수정
+		System.out.print("단어(수정) : ");
+		String updateWord = scan.next();
+		if(wm.updateWord(tmp, updateWord)) {
+			System.out.println("수정 완료");
+			return;
+		}
 
 	}
 	//단어 삭제
 	public void deleteWord() {
 		//단어 입력
-
-		//인스턴스 생성후 wordList 안에 있다면 삭제
+		System.out.print("삭제할 단어를 입력해주세요 : ");
+		String deleteWord = scan.next();
+		Word word = new Word(deleteWord);
+		if(wm.deleteWord(word)) {
+			System.out.println("삭제 완료");
+			return;
+		}
+		System.out.println("삭제할 단어가 없습니다.");
 
 	}
 
@@ -179,7 +188,21 @@ public class WordProgram implements Program{
 	//뜻 추가
 	public void insertMean() {
 		//단어 입력
-
+		System.out.print("뜻을 추가할 단어를 입력하세요 : ");
+		String meanWord = scan.next();
+		Word word = new Word(meanWord);
+		if(!wm.askContain(word)) {
+			System.out.println("해당 단어가 없습니다.");
+			return;
+		}
+		int index = wm.getWordList().indexOf(word);
+		System.out.print("추가할 뜻을 입력하세요 : ");
+		scan.nextLine();
+		String newMean = scan.nextLine();
+		wm.insertOnlyMean(word, newMean);
+		
+		}
+		
 		//리스트 검색
 
 		//뜻 입력
@@ -189,7 +212,7 @@ public class WordProgram implements Program{
 		//리스트에 인스턴스 저장
 
 
-	}
+	
 	//뜻 수정
 	public void updateMean() {
 		//단어 입력
@@ -293,40 +316,44 @@ public class WordProgram implements Program{
 
 
 	//단어 퀴즈
+	//0부터 wordList 크기 만큼의 숫자가 담긴 리스트를 통해서 난수를 만들어
+	//문제의 중복을 피함
 	public void wordQuiz() {
-		if (wordList.size()<=0) {
-			System.out.println("먼저 단어를 추가해주세요.");
+		if(wm.getWordList().size()<=0) {
+			System.out.println("먼저 단어를 추가해주세요");
 			return;
 		}
-		
-		for (int i=0; i<wordList.size();i++) {
-			quiz.add(i);
-		}
-		String user="";
+		String userAnswer="";
+		List<Integer> quiz = wm.makeRanList();
+		scan.nextLine();
 		while(quiz.size()!=0) {
 			int min1 =0, max1 = quiz.size()-1;
 			int r1 = (int)(Math.random()*(max1-min1+1)+min1);
 			int r2 = quiz.remove(r1);
-			List<Means> answer= wordList.get(r2).getMean();
-			String quiz = wordList.get(r2).getWord();
-			System.out.println("문제 : "+quiz);
-			System.out.print("뜻을 입력하세요 : ");
-			user = scan.next();
-			Means tmp1 = new Means("",user);
-			if (answer.contains(tmp1)) {
-				System.out.println("정답입니다.");
-			}else {
-				System.out.println("틀렸습니다.");
-				Word tmp = new Word(quiz,answer);
-				failList.add(tmp);
-			}
+			List<Means> quizAnswer = wm.getWordList().get(r2).getMean();
+			String quizWord = wm.getWordList().get(r2).getWord();
+			System.out.println("단어 : "+quizWord);
+			System.out.print("위 단어의 뜻을 입력하세요 : ");
+			userAnswer = scan.nextLine();
+			List<String> userList = new ArrayList<String>();
+			userList.add(userAnswer);
+//			Means userQuiz = new Means("",userAnswer);
+//			if(quizAnswer.contains(userQuiz)) {
+//				System.out.println("정답입니다.");
+//			}else {
+//				System.out.println("틀렸습니다. 오답노트에 기록됩니다.");
+//				Word fail = new Word(quizWord,quizAnswer);
+//				wm.addFailList(fail);
+//			}
 		}
+		
+	
+		
 	}
 
 	//오답 노트
 	public void failNote() {
-		//람다식을 이용하여 오답을 모아둔 failList의 값을 모두 출력
-
+		wm.failPrintAll();
 	}
 
 	//추가기능 메뉴 출력
@@ -363,7 +390,8 @@ public class WordProgram implements Program{
 		System.out.println("1. 단어로 조회");
 		System.out.println("2. 뜻으로 조회");
 		System.out.println("3. 품사로 조회");
-		System.out.println("4. 뒤로가기");
+		System.out.println("4. 첫 글자로 조회");
+		System.out.println("5. 뒤로가기");
 		System.out.print("메뉴 선택 : ");
 
 	}

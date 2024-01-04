@@ -6,6 +6,10 @@ import java.util.Objects;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+ 
+		
+
 
 @Data
 @AllArgsConstructor
@@ -13,14 +17,33 @@ public class Word {
 	private String word;
 	private List<Means> mean = new ArrayList<>();
 	
+	
+	
 	public Word(String word) {
 		super();
 		this.word = word;
 	}
+	
+	public void addingMean(int index,String newMean) {
+        mean.get(index).addMean(newMean);
+	}
+	
+
+	
+	
+	public boolean containsMean(String newMean) {
+	    for (int i = 0; i < mean.size(); i++) {
+	        Means m = mean.get(i);
+	        if (m.getMeanList().contains(newMean)) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
 
 	@Override
 	public String toString() {
-		return "[단어 : "+word+ "]";
+		return "단어 : " + word + " , 품사 : " + mean.get(0).getWordClass() + " , 뜻 : " + String.join(", ", mean.get(0).getMeanList())+"\n";
 	}
 
 	@Override
@@ -53,31 +76,14 @@ public class Word {
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 class Means{
-	private String wordClass,mean;
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Means other = (Means) obj;
-		return Objects.equals(mean, other.mean);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(mean);
-	}
-
-	@Override
-	public String toString() {
-		return "[품사 : "+wordClass+" 뜻 : "+mean+"]";
-	}
+	private String wordClass;
+	private List<String> meanList = new ArrayList<String>();
 	
-	
-	
+	  public void addMean(String newMean) {
+	        meanList.add(newMean);
+	        
+	    }
+
 }
