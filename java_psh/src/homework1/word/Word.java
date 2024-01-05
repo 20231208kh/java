@@ -1,5 +1,6 @@
 package homework1.word;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -13,10 +14,17 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-public class Word {
+public class Word implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8049968392952320063L;
 	private String word;
 	private List<Means> mean = new ArrayList<>();
 	
+	
+
+                           
 	
 	
 	public Word(String word) {
@@ -41,10 +49,7 @@ public class Word {
 	    return false;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "단어 : " + word + " , 품사 : " + mean.get(0).getWordClass() + " , 뜻 : " + String.join(", ", mean.get(0).getMeanList())+"\n";
-//	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -61,6 +66,11 @@ public class Word {
 	@Override
 	public int hashCode() {
 		return Objects.hash(word);
+	}
+
+	@Override
+	public String toString() {
+		return word + " : " + mean.toString();
 	}
 
 
@@ -80,7 +90,11 @@ public class Word {
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-class Means{
+class Means implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4194355818326289310L;
 	private String wordClass;
 	private List<String> meanList = new ArrayList<String>();
 	
@@ -92,6 +106,28 @@ class Means{
 	public Means(String wordClass) {
 		super();
 		this.wordClass = wordClass;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Means other = (Means) obj;
+		return Objects.equals(meanList, other.meanList);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(meanList);
+	}
+
+	@Override
+	public String toString() {
+		return "(" + wordClass + ")" + meanList;
 	}
 
 	
