@@ -18,6 +18,58 @@ public class WordManager {
 		}
 		return false;
 	}
+	
+	public int getIndex(Word word) {
+		int index = -1;
+		if(wordList.contains(word)) {
+			index = wordList.indexOf(word);
+			return index;
+		}
+		return index;
+	}
+	
+	
+	public void askWordClass(Word word,String wordClass) {
+		int index = wordList.indexOf(word);
+		int index2 = wordList.indexOf(wordClass);
+		int index3 = wordList.get(index).getMean().indexOf(wordClass);
+		
+		Means m = new Means(wordClass);
+		int index4 = wordList.get(index).getMean().indexOf(m);
+		boolean index5 = wordList.get(index).getMean().contains(wordClass);
+		boolean index6 = wordList.get(index).getMean().contains(m);
+		int index7 = word.getMean().indexOf(wordClass);
+		int index8 = word.getMean().indexOf(m);
+		
+		String a = wordList.get(index).getMean().get(0).getWordClass();
+		System.out.println(a);
+		boolean b = a.equals(wordClass);
+		System.out.println(b);
+		
+		
+		for(int i=0; i<wordList.get(index).getMean().size();i++) {
+			if(wordList.get(index).getMean().get(i).getWordClass().equals(wordClass)) {
+				System.out.println(i);
+				}else {
+					System.out.println("no");
+				}
+		}
+		
+		
+		
+//		System.out.println(index);
+//		System.out.println(index2);
+//		System.out.println(index3);
+//		System.out.println(index4);
+//		System.out.println(index5);
+//		System.out.println(index6);
+//		System.out.println(index7);
+//		System.out.println(index8);
+		
+		
+	}
+		
+	
 	public boolean askContainFail(Word word) {
 		if(failList.contains(word)) {
 			return true;
@@ -90,23 +142,26 @@ public class WordManager {
 		}
 		failList.stream().forEach(f->System.out.println(f));
 	}
-	public void insertOnlyMean(Word word, String newMean) {
+	
+	
+	public void insertOnlyMean(Word word, String newMean,int index2) {
 		int index = -1;
 		if(!askContain(word)) {
 			return;
 		}
 		index = wordList.indexOf(word);
+		
 		if (wordList.get(index).containsMean(newMean)) {
 	        System.out.println("중복된 뜻입니다.");
 	        return;
 		}
-		wordList.get(index).addingMean(index, newMean);
+		
+		wordList.get(index).getMean().get(index2).addMean(newMean);
 		System.out.println(wordList);
 		
-	
-		
-		
-		
+//		String wordc = wordList.get(index).getMean().get(index).getWordClass();
+//		System.out.println(wordc);
+
 		
 	}
 }

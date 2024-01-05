@@ -41,10 +41,10 @@ public class Word {
 	    return false;
 	}
 
-	@Override
-	public String toString() {
-		return "단어 : " + word + " , 품사 : " + mean.get(0).getWordClass() + " , 뜻 : " + String.join(", ", mean.get(0).getMeanList())+"\n";
-	}
+//	@Override
+//	public String toString() {
+//		return "단어 : " + word + " , 품사 : " + mean.get(0).getWordClass() + " , 뜻 : " + String.join(", ", mean.get(0).getMeanList())+"\n";
+//	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -62,7 +62,10 @@ public class Word {
 	public int hashCode() {
 		return Objects.hash(word);
 	}
-	
+
+
+
+
 
 	
 	
@@ -85,5 +88,15 @@ class Means{
 	        meanList.add(newMean);
 	        
 	    }
+
+	public Means(String wordClass) {
+		super();
+		this.wordClass = wordClass;
+	}
+
+	
+	  
+	  
+	  
 
 }

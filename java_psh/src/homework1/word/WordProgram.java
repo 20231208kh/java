@@ -97,6 +97,7 @@ public class WordProgram implements Program{
 			break;
 		case 4:
 			//뒤로가기
+			test();
 			break;
 		default:
 			//예외 처리
@@ -106,6 +107,29 @@ public class WordProgram implements Program{
 
 	}
 	
+
+	private void test() {
+		System.out.print("단어");
+		String wordC = scan.next();
+		Word word = new Word(wordC);
+		System.out.print("품사");
+		String type = scan.next();
+		int index = -1;
+		if(wm.getWordList().contains(word)) {
+			System.out.println("yes");
+			index = wm.getWordList().indexOf(word);
+			System.out.println(index);
+		}
+		int i;
+		for(i=0;i<wm.getWordList().get(index).getMean().size();i++) {
+			String a = wm.getWordList().get(index).getMean().get(i).getWordClass();
+			if(a.equals(type)){
+				System.out.println("yes");
+				System.out.println(i);
+			}
+		}
+		
+	}
 
 	// 단어 추가
 	public void insertWord() {
@@ -166,7 +190,7 @@ public class WordProgram implements Program{
 		switch(menu) {
 		case 1:
 			//뜻 추가
-			insertMean();
+			insertMean2();
 			break;
 		case 2:
 			//뜻 수정
@@ -186,22 +210,64 @@ public class WordProgram implements Program{
 
 	}
 	//뜻 추가
-	public void insertMean() {
-		//단어 입력
-		System.out.print("뜻을 추가할 단어를 입력하세요 : ");
-		String meanWord = scan.next();
-		Word word = new Word(meanWord);
+//	public void insertMean() {
+//		//단어 입력
+//		System.out.print("뜻을 추가할 단어를 입력하세요 : ");
+//		String meanWord = scan.next();
+//		Word word = new Word(meanWord);
+//		if(!wm.askContain(word)) {
+//			System.out.println("해당 단어가 없습니다.");
+//			return;
+//		}
+//		System.out.print("추가할 뜻을 입력하세요 : ");
+//		scan.nextLine();
+//		String newMean = scan.nextLine();			
+//		wm.insertOnlyMean(word, newMean);
+//		
+//	}
+	
+	public void insertMean2() {
+		System.out.print("뜻을 추가할 단어 : ");
+		String wordC = scan.next();
+		Word word = new Word(wordC);
 		if(!wm.askContain(word)) {
-			System.out.println("해당 단어가 없습니다.");
+			System.out.println("없는 단어입니다.");
+		}
+		int index = wm.getIndex(word);
+		System.out.print("뜻에 해당하는 품사 : ");
+		String wordClass = scan.next();
+		int index2 = -1;
+		for(int i=0;i<wm.getWordList().get(index).getMean().size();i++) {
+			String a = wm.getWordList().get(index).getMean().get(i).getWordClass();
+			if(a.equals(wordClass)){
+				System.out.println("yes");
+				System.out.println(i);
+				index2 = i;
+			}
+		}
+		if (index2 == -1) {
+			System.out.println("등록되지 않은 품사입니다. 품사를 추가하시겠습니까? ");
+			System.out.print("등록할 품사 : ");
+			String newWordClass = scan.next();
+			System.out.println("추가할 뜻 : ");
+			String NewMean2 = scan.next();
+			List<String> newMeanList = new ArrayList<String>();
+			newMeanList.add(NewMean2);
+			Means tmp = new Means(newWordClass,newMeanList);
+			wm.getWordList().get(index).getMean().add(tmp);
+			System.out.println(wm.getWordList());
+//			wm.getWordList().get(index).getMean().add(tmp);
+			System.out.println(wm.getWordList());
 			return;
 		}
-		int index = wm.getWordList().indexOf(word);
-		System.out.print("추가할 뜻을 입력하세요 : ");
-		scan.nextLine();
-		String newMean = scan.nextLine();
-		wm.insertOnlyMean(word, newMean);
-		
+		if (index2 != -1) {
+			System.out.println("기존에 등록된 품사입니다. 기존 품사에 뜻을 추가합니다.");
+			System.out.print("추가할 뜻 : ");
+			String newMean = scan.next();
+			wm.insertOnlyMean(word, newMean, index2);
 		}
+	}
+		
 		
 		//리스트 검색
 
