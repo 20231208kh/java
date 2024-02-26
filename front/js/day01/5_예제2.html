@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var num1 = prompt("정수 1 입력");
+        var num2 = prompt("정수 2 입력");
+        num1 = +num1;
+        num2 = +num2;
+        num1 = num1 ?? 0;
+        num2 = num2 ?? 0;
+
+        document.write(`두 정수의 합은 : ${num1+num2}`);
+    </script>
+</body>
+</html>

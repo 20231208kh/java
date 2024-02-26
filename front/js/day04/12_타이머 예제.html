@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 300px; border: 1px solid black;
+            text-align: center; height: 72px; padding: 20px;
+            box-sizing: border-box; margin: 0 auto;
+            line-height: 30px;
+        }
+
+        .btn-group{
+            width: 300px; margin: 0 auto; display: flex;
+            justify-content: space-between; margin-top: 10px;
+        }
+        .btn-group button{
+            width: 48%; height: 30px; background-color: #fff;
+            border-width: 1px;
+        }
+
+        .btn-group button:hover{
+            background-color: tomato; color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">00 : 00 : 00</div>
+    <div class="btn-group">
+        <button class="btn-start">시작</button>
+        <button class="btn-stop">중지</button>
+    </div>
+    <script>
+        let count = 0;
+        let id;
+        let startBtn = document.getElementsByClassName("btn-start")[0];
+        startBtn.onclick = function(){
+           id = setInterval(function(){
+                ++count;
+                let hour = parseInt(count/3600);
+                hour = String(hour).padStart(2,"0");
+                let minute = parseInt(count/60)%60;
+                minute = String(minute).padStart(2,"0");
+                let second = count %60;
+                second = String(second).padStart(2,"0");
+    
+                let result = `${hour} : ${minute} : ${second}`;
+                let box = document.getElementsByClassName("box")[0];
+                box.innerText = result;
+            }, 1000);
+        }
+
+        let stopBtn = document.getElementsByClassName("btn-stop")[0];
+        stopBtn.onclick = function(){
+            clearInterval(id);
+        }
+        
+    </script>
+</body>
+</html>

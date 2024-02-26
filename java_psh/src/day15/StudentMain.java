@@ -13,7 +13,7 @@ public class StudentMain {
 	 *  학성 정보를 Student 클래스를 생성하여 할용
 	 *  -학년, 반, 번호 이름, 국어 ,영어, 수학
 	 *  리스트를 활용
-	 *  
+	 *  contains, indexOf
 	 *  기능
 	 *  1.학생관리
 	 *  -학생 추가
@@ -34,6 +34,9 @@ public class StudentMain {
 	 *  -영어
 	 *  -수학
 	 */
+	
+	
+	
 	public static void main(String[] args) {
 		
 		Program p = new StudentProgram();

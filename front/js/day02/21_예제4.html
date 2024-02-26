@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{width: 600px; margin: 0 auto;}
+        .img-container{
+            display: flex ;justify-content: space-between; flex-wrap: wrap;
+        }
+        .img-box{
+            border: 1px solid black; width: 30%;
+            border-radius: 5px; padding: 5px;
+            cursor: pointer;
+        }
+        .img-box img{
+            width: 100%; display: block; height: 180px;
+            border-radius: 5px;
+        }
+        .show{
+            border: 1px solid black; padding: 5px;
+            box-sizing: border-box; border-radius: 5px;
+            margin-top: 10px;
+        }
+        .show img{
+            display: block; height: 588px; border-radius: 5px;
+            visibility: hidden; width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="img-container">
+            <div class="img-box">
+                <img src="https://health.chosun.com/site/data/img_dir/2023/07/17/2023071701753_0.jpg" alt="고양이">
+            </div>
+            <div class="img-box">
+                <img src="https://i.namu.wiki/i/JD5l5VCJgt9fH81szpcPJ9tGJQ819HfMmL4OmZTAKg95LcuwUuiIjTCZLpv9UlU5XmvgivRxKl_cWNPyIPw79_aytDLkiZRZi6X0Rien7Aybktsafx6sqe5weCoc1ko_Wc8RKWKQ8bHBmJaXcPUN5Q.webp" alt="고양이">
+            </div>
+            <div class="img-box">
+                <img src="https://www.fitpetmall.com/wp-content/uploads/2023/10/230420-0668-1.png" alt="고양이">
+            </div>
+        </div>
+        <div class="show">
+            <img src="" alt="확대">
+        </div>
+    </div>
+    <script>
+        // 이미지 여러개 있고, 이미지를 클릭하면 클릭한 이미지가 커짐
+        document.querySelectorAll('.img-box').forEach(element=>{
+            element.onclick = function(){
+                let src = this.getElementsByTagName('img')[0].src;
+                let showImg = document.querySelector('.show img');
+                showImg.src = src;
+                showImg.style.visibility ='visible';
+                
+            }
+        });
+
+
+    </script>
+</body>
+</html>

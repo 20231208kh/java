@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            border: 2px solid black; height: 500px; width: 500px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">박스1</div>
+    <button class="btn" onclick="changeBgToggle()">배경 변경</button>
+
+
+    <script>
+        let bt = document.getElementsByClassName('btn')[0];
+        var toggle = true;
+
+        function changeBgToggle(){
+
+            const color = "yellow"
+
+            let box = document.getElementsByClassName("box")[0];
+
+            box.style.backgroundColor = toggle?color:"";
+
+            toggle = !toggle;
+
+           
+
+        }
+
+  
+
+    </script>
+
+</body>
+</html>

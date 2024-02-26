@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btnPlus" onclick="btnP(1)">+</button>
+    <input id="number" type="number" value="0" readonly>
+    <button id="btnMinus" onclick="btnP(-1)">-</button>
+
+    <script>
+
+
+        
+        function btnP(amount){
+            let textElement = document.getElementById('number');
+            let num = textElement.value;
+
+            num = +num;
+            num += amount;
+            textElement.value = num;
+        }
+
+        function btnM(){
+
+        }
+
+    </script>
+    
+</body>
+</html>

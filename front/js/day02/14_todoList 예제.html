@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <input class ="text" type="text" onchange="add();">
+    <button id="btn" onclick="add()">추가</button>
+    <h1>오늘의 할일</h1>
+    <ul id="todoList"></ul>
+    <script>
+
+       
+
+        function add(){
+            let textElement = document.getElementsByClassName('text')[0];
+            // let text = textElement.value;
+
+            let todoList = document.getElementById('todoList');
+            let text = textElement.value;
+            
+
+            todoList.innerHTML += `<li>${text}</li>`;
+
+            textElement.value = '';
+            textElement.focus();
+        }
+
+    </script>
+
+</body>
+</html>

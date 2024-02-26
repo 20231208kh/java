@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            margin-bottom: 10px; border: 2px solid black;
+            padding: 10px;
+        }
+        .box{
+            width: 100px; height: 50px; background-color: yellow;
+        }
+        #con1 .box{
+            transition: margin-left 1s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="con1">
+        <div class="box"></div>
+    </div>
+    <div class="container" id="con2">
+        <div class="box"></div>
+    </div>
+    <button id="btn">이동</button>
+    <script>
+        let btn = document.getElementById("btn");
+        let box1 = document.querySelector("#con1 .box");
+        let box2 = document.querySelector("#con2 .box");
+
+        btn.onclick = function(){
+            box1.style.marginLeft = "100px";
+        }
+    </script>
+</body>
+</html>

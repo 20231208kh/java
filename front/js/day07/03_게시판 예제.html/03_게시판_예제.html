@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .id,.pw,.pw2{
+            width:99%; margin-top: 10px; display: flex;
+        }
+        .container{
+            border: 2px solid black; width: 100%; height: 250px;
+        }
+
+        .label{
+            margin-top: 5px;
+        }
+        .btn{
+    
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <label for="title" class="label">아이디</label>
+        <input type="text" class="id" id="input" placeholder="아이디 입력">
+        <label for="pw" class="label">비번</label>
+        <input type="text" class="pw" id="input" placeholder="비번 입력">
+        <label for="" class="label">비번확인</label>
+        <input type="text" class="pw2" id="input" placeholder="비번 확인">
+        <button class="btn">작성하기</button>
+    </div>
+    <table>
+        <thead>
+            <th>번호</th>
+            <th>기사 제목</th>
+            <th>조회수</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>2</td>
+                <td>오늘의 날씨는?</td>
+                <td>
+                    <button class="btn2">기사보기</button>
+                </td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>오늘의 뉴스는 무엇인가요?</td>
+                <td>
+                    <button class="btn2">기사보기</button>
+                </td>
+                <td>100</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <th>기사개수</th>
+            <th>2</th>
+        </tfoot>
+    </table>
+</body>
+</html>

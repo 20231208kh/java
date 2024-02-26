@@ -25,7 +25,7 @@ public class MapEx1 {
 		
 		Set<Map.Entry<String,String>> entrySet = map.entrySet();
 		
-
+		
 	}
 
 }

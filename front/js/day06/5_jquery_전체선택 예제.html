@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+    <input type="checkbox" id="all"> 전체 선택 <br>
+    <input type="checkbox" class="checkbox"> 1 <br>
+    <input type="checkbox" class="checkbox"> 2 <br>
+    <input type="checkbox" class="checkbox"> 3 <br>
+
+    <script>
+        $("#all").click(function(){
+            $(".checkbox").prop("checked",true);
+
+            if(!$("#all").is(":checked")){
+                $(".checkbox").prop("checked",false);
+            }
+        })
+    </script>
+</body>
+</html>

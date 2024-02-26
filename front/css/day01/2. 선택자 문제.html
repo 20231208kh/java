@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선택자 문제</title>
+    <style>
+     .item-menu:first-of-type{
+        color : red;
+     } 
+     .item-menu+.item-menu{
+        color:blue;
+     }
+     
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <ul class="list-menu">
+            <li class="item-menu">
+               메뉴1
+            </li>
+            <li class="item-menu">
+               메뉴2            </li>
+            <li class="item-menu">
+               메뉴3            </li>
+        </ul>
+    </nav>
+    
+</body>
+</html>

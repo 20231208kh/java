@@ -24,4 +24,6 @@ hs_err_pid*
 replay_pid*
 .classpath
 .project
-java_psh/.gitignore
+**/.gitignore
+.settings/
+MANIFEST.MF

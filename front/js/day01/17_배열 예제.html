@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var arr = [1, '안녕', true, {}];
+        arr.push(1,2,3);
+        arr.unshift('a','b','c');
+        console.log(arr);
+        console.log(arr.pop());
+        console.log(arr.shift());
+        console.log(arr);
+
+        console.log(arr.indexOf(1));
+        console.log(arr.lastIndexOf(1));
+        console.log(arr.includes(1));
+
+        console.log(arr.join('-'));
+
+        /*slice() 원본 안바뀜, 배열 잘라냄, 부분배열을 생성해서 리턴
+        - splice() 원본이 바뀜, 배열을 삭제하거나 추가 */
+        console.log(arr.slice(0,2));
+        console.log(arr.splice(0,0,'100',200,false));
+        console.log(arr);
+
+        console.log(arr.map((item)=>{
+            return item +1;
+        }))
+
+        console.log(arr.filter((item)=>{
+            return item > 100;
+        }))
+
+        console.log(arr.reduce((acc, item)=>{
+            if(typeof item == 'number'){
+                return acc+item;
+            }
+            return acc;
+        },0))
+
+        console.log(arr.find((item)=>{
+            return item ==1;
+
+        }))
+
+        arr.forEach((item, index)=>{
+            console.log(`${index}번지 : ${item}`)
+        })
+
+    </script>
+    
+</body>
+</html>

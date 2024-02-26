@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+    <input type="text" class="text">
+
+    <script>
+        $(".text").change(function(){
+            let text =$(".text").val();
+            let regex = /^\d+$/;
+            if(!regex.test(text)){
+                
+                $("*body").append(`<br><span>숫자가 아님</span>`)
+            }
+        })
+    </script>
+    
+</body>
+</html>

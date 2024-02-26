@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*정수를 입력받아 입력받은 정수가 양수이면 
+          0부터 입력받은 정수까지 더하고
+          음수이면 0부터 입력받은 정수까지 빼서 
+          브라우저에 출력하는 코드
+        */
+
+        function sumOrSubtract(num,callbackA,callbackB){
+            if(num>0){
+                callbackA(num);
+            }else if(num<0){
+                callbackB(num);
+                console.log(callbackB(num));
+            }else{
+                document.write('0은 불가');
+            }
+        }
+
+        function sum1(num){
+            var sum = 0;
+            for(let i=0; i<=num;i++){
+                document.write(`${sum}+${i} = ${sum+i}`);
+                document.write('<br>');
+                sum += i;
+            }
+            return sum;
+            
+        }
+
+        function subtract1(num){
+            var subtract =0;
+            for(let i=0; i>= num; i--){
+                subtract -= i;
+            }
+            return subtract;
+
+        }
+
+        var num = prompt('정수를 입력하세요');
+        num = parseInt(num);
+
+        sumOrSubtract(num,sum1,subtract1);
+
+
+    </script>
+</body>
+</html>

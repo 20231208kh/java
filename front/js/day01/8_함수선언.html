@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function test1(){
+            document.write('test1');
+            document.write('<br>');
+        }
+
+        function test2(){
+            document.write('test2');
+            document.write('<br>')
+        }
+        test1();
+        test2();
+
+        //var로 선언한 함수는 구현부가 선언부보다 뒤에있으면 안됨
+        //호이스팅이 일어나긴 하는데, 함수의 정의식은 따라가지 않고, 변수의 이름만 
+        //호이스팅돼서 위로 올라감.
+        var test3 = function(){
+            document.write('테스트');
+            document.write('<br>');
+        }
+        test3();
+        
+    </script>
+</body>
+</html>

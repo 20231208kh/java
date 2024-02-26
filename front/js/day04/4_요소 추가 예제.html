@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .btn{ display: block; height: 30px; background-color: #fff;
+        border-radius: 5px; border-color: red; border-width: 1px}
+        .btn:hover{
+            background-color: red; color: white; font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <button class="btn btn-add">버튼 추가하기</button>
+
+    <script>
+        btnAdd = document.getElementsByClassName("btn-add")[0];
+        let count =0;
+
+        btnAdd.onclick = function(){
+            let button = document.createElement("button");
+            let text = document.createTextNode(`버튼${++count}`);
+            button.append(text);
+            btnAdd.after(button);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">이미지 추가</button>
+    <div id="box"></div>
+    <script>
+        let btn = document.getElementById("btn");
+        btn.onclick = function(){
+            //<img>
+            let img = document.createElement("img");
+            //src= ""
+            let src = document.createAttribute("src");
+            //alt= ""
+            let alt = document.createAttribute("alt");
+            src.value = "https://image.utoimage.com/preview/cp872722/2022/12/202212008462_500.jpg";
+            alt.value = "강아지";
+            img.setAttributeNode("src");
+            img.setAttributeNode("alt");
+
+            let box = document.getElementById("box");
+            box.append(img);
+        }
+    </script>
+</body>
+</html>

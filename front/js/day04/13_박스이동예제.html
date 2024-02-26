@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            margin-bottom: 10px; border: 2px solid black; width:220px;
+            padding: 10px;
+        }
+        .box{
+            width: 100px; height: 50px; background-color: green;
+        }
+        #con .box{
+            transition: margin-left 1s;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="container" id="con">
+        <div class="box"></div>
+    </div>
+    <button class="btn" id="btn-left">왼쪽</button>
+    <button class="btn" id="btn-right">오른쪽</button>
+    
+    <script>
+        let btnRight = document.getElementById("btn-right");
+        let btnLeft = document.getElementById("btn-left");
+        let box = document.querySelector("#con .box");
+
+        btnRight.onclick = function(){
+            box.style.marginLeft = "100px";
+        }
+
+        btnLeft.onclick = function(){
+            box.style.marginRight ="100px";
+        }
+    </script>
+
+</body>
+</html>

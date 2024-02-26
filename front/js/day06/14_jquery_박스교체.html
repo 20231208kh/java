@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <style>
+    		.container{
+			max-width: 500px; margin: 0 auto;
+		}
+		.box-group{
+			border: 3px solid black; margin-bottom: 20px;
+		}
+		.box{
+			height: 400px; display: none;
+		}
+		.box.select{
+			display: block;
+		}
+		.box.box1 { background-color: yellow;}
+		.box.box2 { background-color: red;}
+		.box.box3 { background-color: green;}
+		.nav-group{
+			display: flex; align-items: center;
+			justify-content: center;
+		}
+		.page-group{
+			margin: 0 10px;
+		}
+		.max-page{ font-weight: bold;}
+		.btn-prev,.btn-next{
+			width: 30px; height: 30px; border-radius: 50%;
+			border-width: 1px; background-color: #fff;
+			cursor: pointer;
+		}
+		.btn-prev:hover, .btn-next:hover{
+			font-weight: bold; background-color: aliceblue;
+		}
+    </style>
+</head>
+<body>
+    <div class="container">
+		<div class="box-group">
+			<div class="box box1"></div>
+			<div class="box box2"></div>
+			<div class="box box3"></div>
+		</div>
+		<div class="nav-group">
+			<button class="btn-prev">&lt;</button>
+			<span class="page-group">
+				<span class="cur-page">1</span> / <span class="max-page">3</span>
+			</span>
+			<button class="btn-next">></button>
+		</div>
+	</div>
+    <script>
+        $(".box1").show();
+        $(".btn-next").click(function(){
+            let count = $(".cur-page").text();
+            let maxCount =$(".max-page").text();
+            $(`.box${count}`).show();
+            count++;
+            if(count>maxCount){
+                count=maxCount;
+                return;
+            }
+            $(".cur-page").text(count);
+            $(`.box${count-1}`).hide();
+            $(`.box${count}`).show();
+        })
+        $(".btn-prev").click(function(){
+            let count = $(".cur-page").text();
+            let minCount =1;
+            $(`.box${count}`).show();
+            count--;
+            if(count<minCount){
+                count=minCount;
+                return;
+            }
+            $(".cur-page").text(count);
+            $(`.box${count+1}`).hide();
+            $(`.box${count}`).show();
+        })
+
+    </script>
+</body>
+</html>

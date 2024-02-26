@@ -1,0 +1,14 @@
+package db.mybatis.service;
+
+import java.util.ArrayList;
+
+import db.mybatis.model.vo.MemberVO;
+
+public interface MemberService {
+
+	boolean insertMember(MemberVO member);
+	boolean deleteMember(MemberVO member);
+
+	ArrayList<MemberVO> getMemberList();
+
+}
