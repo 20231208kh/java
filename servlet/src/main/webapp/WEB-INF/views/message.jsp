@@ -13,8 +13,10 @@
 			alert(msg);
 		}
 		let redirectURL = '${url}';
-		if(url !=''){
-			location.href = '<c:url value ="\${url}"/>'
+		if(redirectURL !=''){
+			location.href = '<c:url value ="/\${redirectURL}"/>';
+		}else{
+			location.href = '<c:url value ="/"/>';
 		}
 	</script>
 </body>
