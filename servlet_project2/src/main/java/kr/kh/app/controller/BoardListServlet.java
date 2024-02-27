@@ -13,27 +13,16 @@ import kr.kh.app.model.vo.BoardVO;
 import kr.kh.app.service.BoardService;
 import kr.kh.app.service.BoardServiceImp;
 
-
 @WebServlet("/board/list")
 public class BoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private BoardService boardService = new BoardServiceImp();
-	
-    public BoardListServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
+    private BoardService boardService = new BoardServiceImp();
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//서비스에게 게시글 리스트를 달라고 요청 : getBoardList()
 		ArrayList<BoardVO> list = boardService.getBoardList();
-		request.setAttribute("list", list);
+		//화면에 게시글 리스트를 전송 : 화면에서 사용할 이름 - boardList
+		request.setAttribute("boardList", list);
 		request.getRequestDispatcher("/WEB-INF/views/board/list.jsp").forward(request, response);
 	}
-
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }

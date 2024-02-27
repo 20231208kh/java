@@ -53,20 +53,23 @@ public class MemberServiceImp implements MemberService {
 		}
 	}
 	@Override
-	public MemberVO login(LoginDTO loginDTO) {
-		if(loginDTO.getId()==null) {
+	public MemberVO getMember(LoginDTO loginDto) {
+		if(loginDto == null) {
 			return null;
 		}
 		
-		MemberVO user = memberDao.selectMember(loginDTO.getId());
-		
+		//다오에게 아이디를 주면서 회원 정보를 가져오라고 시킴
+		MemberVO user = memberDao.selectMember(loginDto.getId());
+		//가져온 회원정보가 없으면 null을 리턴
 		if(user == null) {
 			return null;
 		}
-		if(user.getMe_pw().equals(loginDTO.getPw())) {
+		//있으면 DB 정보의 비번과 사용자가 입력한 비번이 같으면 DB정보를, 다르면 null를 리턴 
+		//비번은 회원가입시 암호화가 되어 관리되기 때문에 DB에서 직접 비교할 수 없다
+		//그래서 비번 확인을 서버쪽에서 해야 함
+		if(user.getMe_pw().equals(loginDto.getPw())) {
 			return user;
 		}
-		
 		return null;
 	}
 }

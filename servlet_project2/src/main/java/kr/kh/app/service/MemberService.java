@@ -7,6 +7,6 @@ public interface MemberService {
 
 	boolean signup(MemberVO member);
 
-	MemberVO login(LoginDTO loginDTO);
+	MemberVO getMember(LoginDTO loginDto);
 
 }
