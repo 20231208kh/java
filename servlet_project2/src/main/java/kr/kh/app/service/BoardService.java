@@ -2,8 +2,11 @@ package kr.kh.app.service;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.Part;
+
 import kr.kh.app.model.vo.BoardVO;
 import kr.kh.app.model.vo.CommunityVO;
+import kr.kh.app.model.vo.FileVO;
 import kr.kh.app.model.vo.MemberVO;
 import kr.kh.app.pagination.Criteria;
 
@@ -11,7 +14,7 @@ public interface BoardService {
 
 	ArrayList<BoardVO> getBoardList(Criteria cri);
 
-	boolean insertBoard(BoardVO board);
+	boolean insertBoard(BoardVO board, ArrayList<Part> partList);
 
 	ArrayList<CommunityVO> getCommunityList();
 
@@ -23,6 +26,8 @@ public interface BoardService {
 
 	boolean deleteBoard(int num, MemberVO user);
 
-	boolean updateBoard(MemberVO user, BoardVO board);
+	boolean updateBoard(BoardVO board, MemberVO user);
+
+	ArrayList<FileVO> getFile(int num);
 
 }

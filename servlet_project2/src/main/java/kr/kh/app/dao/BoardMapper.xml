@@ -40,7 +40,7 @@
 		select * from community where co_num = #{bo_co_num}
 	</select>
 	
-	<insert id="insertBoard">
+	<insert id="insertBoard" useGeneratedKeys="true" keyProperty="board.bo_num">
 		insert into board(bo_title, bo_content, bo_me_id, bo_co_num)
 		values(#{board.bo_title},#{board.bo_content},#{board.bo_me_id},#{board.bo_co_num})
 	</insert>
@@ -82,12 +82,20 @@
 		where
 			bo_num = #{num}
 	</delete>
-	<update id="updatePost">
+	<update id="updateBoard">
 		update board set
 			bo_title = #{board.bo_title},
 			bo_content = #{board.bo_content},
 			bo_co_num = #{board.bo_co_num}
 		where
-		bo_num = #{board.bo_num}
+			bo_num = #{board.bo_num}
 	</update>
+	<insert id="insertFile">
+		insert into file(fi_bo_num, fi_ori_name, fi_name)
+		values(#{file.fi_bo_num},#{file.fi_ori_name},#{file.fi_name})
+	</insert>
+	
+	<select id="getFile" resultType ="kr.kh.app.model.vo.FileVO">
+		select * from file where fi_bo_num = #{num}
+	</select>
 </mapper>

@@ -15,62 +15,63 @@ import kr.kh.app.model.vo.MemberVO;
 import kr.kh.app.service.BoardService;
 import kr.kh.app.service.BoardServiceImp;
 
-
 @WebServlet("/board/update")
 public class BoardUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    BoardService boardService = new BoardServiceImp();
+	
+	private BoardService boardService = new BoardServiceImp();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//게시글 번호를 가져옴
 		int num;
 		try {
 			num = Integer.parseInt(request.getParameter("num"));
 		}catch(Exception e) {
-			num =0;
+			num = 0;
 		}
-		
+		//번호와 일치하는 게시글을 가져옴
 		BoardVO board = boardService.getBoard(num);
+		//게시판 리스트를 가져옴
 		ArrayList<CommunityVO> list = boardService.getCommunityList();
-		request.setAttribute("board", board);
+		//게시글과 게시판 리스트를 화면에 전송
 		request.setAttribute("list", list);
+		request.setAttribute("board", board);
 		request.getRequestDispatcher("/WEB-INF/views/board/update.jsp").forward(request, response);
-		
 	}
 
-	
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int num;
-		int community;
+		//게시글 번호, 내용, 제목, 게시판 번호를 가져옴
+		int num, co_num;
 		try {
 			num = Integer.parseInt(request.getParameter("num"));
-			community = Integer.parseInt(request.getParameter("community"));
-		}catch(Exception e) {
-			num =0;
-			community = 0;
+			co_num = Integer.parseInt(request.getParameter("community"));
+		}catch (Exception e) {
+			num = 0;
+			co_num = 0;
 		}
-		
-		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		
-		BoardVO board = new BoardVO(num,community,title,content);
-		
-		
+		//게시글 번호, 내용, 제목, 게시판 번호를 이용해서 게시글 객체를 생성
+		BoardVO board = new BoardVO(title, content, "", co_num);
+		board.setBo_num(num);
+
+		//회원 가져옴
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
-		
-		boolean res = boardService.updateBoard(user,board);
-		
+		//서비스에게 회원 정보와 수정할 게시글 정보를 주면서 수정하라고 요청
+		boolean res = boardService.updateBoard(board, user);
+		//수정했으면 게시글을 수정했습니다
 		if(res) {
-			request.setAttribute("msg", "게시글을 수정 했습니다.");
-			request.setAttribute("url", "board/list");
-		}else {
-			request.setAttribute("msg", "게시글을 수정하지 못했습니다.");
-			request.setAttribute("url", "board/detail?num="+num);
+			request.setAttribute("msg", "게시글을 수정했습니다");
 		}
-		
+		//못햇으면 게시글을 수정하지 못했습니다라고 알림
+		else {
+			request.setAttribute("msg", "게시글을 수정하지 못했습니다");
+		}
+		//게시글 상세로 이동
+		request.setAttribute("url", "board/detail?num="+num);
 		request.getRequestDispatcher("/WEB-INF/views/message.jsp").forward(request, response);
-		
 	}
 
 }
