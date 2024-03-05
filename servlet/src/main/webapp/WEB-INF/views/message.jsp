@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,15 +10,10 @@
 <body>
 	<script type="text/javascript">
 		let msg = '${msg}';
-		if(msg !=''){
+		if(msg != ''){
 			alert(msg);
 		}
-		let redirectURL = '${url}';
-		if(redirectURL !=''){
-			location.href = '<c:url value ="/\${redirectURL}"/>';
-		}else{
-			location.href = '<c:url value ="/"/>';
-		}
+		location.href = '<c:url value="/${url}"/>';
 	</script>
 </body>
 </html>

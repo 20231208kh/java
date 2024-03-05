@@ -21,4 +21,11 @@ public class BoardVO {
 		this.bo_me_id = writer;
 		this.bo_co_num = co_num;
 	}
+
+	public BoardVO(int num, int bo_co_num, String title, String content) {
+		this.bo_num = num;
+		this.bo_co_num = bo_co_num;
+		this.bo_title = title;
+		this.bo_content= content;
+	}
 }

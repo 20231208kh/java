@@ -13,6 +13,8 @@ import kr.kh.app.dao.BoardDAO;
 import kr.kh.app.dao.MemberDAO;
 import kr.kh.app.model.vo.BoardVO;
 import kr.kh.app.model.vo.CommunityVO;
+import kr.kh.app.model.vo.MemberVO;
+import kr.kh.app.pagination.Criteria;
 
 public class BoardServiceImp implements BoardService {
 
@@ -33,8 +35,12 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public ArrayList<BoardVO> getBoardList() {
-		return boardDao.selectBoardList();
+	public ArrayList<BoardVO> getBoardList(Criteria cri) {
+		//현재 페이지정보 null 처리 
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		return boardDao.selectBoardList(cri);
 	}
 
 	@Override
@@ -57,6 +63,57 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public ArrayList<CommunityVO> getCommunityList() {
 		return boardDao.selectCommunityList();
+	}
+
+	@Override
+	public int getTotalCount(Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		return boardDao.selectTotalCount(cri);
+	}
+
+	@Override
+	public boolean updateView(int num) {
+		return boardDao.updateView(num);
+	}
+
+	@Override
+	public BoardVO getBoard(int num) {
+		return boardDao.selectBoard(num);
+	}
+
+	@Override
+	public boolean deleteBoard(int num, MemberVO user) {
+		if(user == null) {
+			return false;
+		}
+		//게시글을 가져옴
+		BoardVO board = boardDao.selectBoard(num);
+		//게시글이 없거나 작성자가 아니면 false를 리턴
+		if(board == null || !board.getBo_me_id().equals(user.getMe_id())) {
+			return false;
+		}
+		//게시글을 삭제 요청
+		return boardDao.deleteBoard(num);
+	}
+
+	@Override
+	public boolean updateBoard(MemberVO user, BoardVO board) {
+		if(!checkString(board.getBo_title())||
+		   !checkString(board.getBo_content())) {
+			return false;
+		}
+		
+		BoardVO dbBoard = boardDao.selectBoard(board.getBo_num());
+		
+		if(user.getMe_id()!=dbBoard.getBo_me_id()) {
+			return false;
+		}
+		
+		boolean res = boardDao.updatePost(board);
+		
+		return res;
 	}
 	
 	
