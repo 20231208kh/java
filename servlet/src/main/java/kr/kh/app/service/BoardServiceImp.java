@@ -1,5 +1,6 @@
 package kr.kh.app.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -22,8 +23,7 @@ import kr.kh.app.utils.FileUploadUtils;
 public class BoardServiceImp implements BoardService{
 
 	private BoardDAO boardDao;
-	private String uploadPath ="D:\\uploads";
-	
+	private String uploadPath = "D:\\uploads";
 	public BoardServiceImp() {
 		String resource = "kr/kh/app/config/mybatis-config.xml";
 		
@@ -38,7 +38,7 @@ public class BoardServiceImp implements BoardService{
 	}
 
 	@Override
-	public boolean insertBoard(BoardVO board , Part filePart) {
+	public boolean insertBoard(BoardVO board , ArrayList<Part> partList) {
 		if( board == null || 
 			!checkString(board.getBo_content()) || 
 			!checkString(board.getBo_title())) {
@@ -53,7 +53,11 @@ public class BoardServiceImp implements BoardService{
 			return false;
 		}
 		
-		uploadFile(filePart,board.getBo_num());
+		//첨부파일 업로드
+		
+		for(Part filePart : partList) {
+			uploadFile(filePart, board.getBo_num());		
+		}
 		return res;
 	}
 
@@ -99,12 +103,25 @@ public class BoardServiceImp implements BoardService{
 		if(board == null || !board.getBo_me_id().equals(user.getMe_id())) {
 			return false;
 		}
+		
+		//게시글의 첨부파일을 서버 폴더에서 삭제(실제 파일)
+		ArrayList<FileVO>fileList = boardDao.selectFileByBo_num(num);
+		for(FileVO file : fileList) {
+			deleteFile(file);			
+		}
+		//게시글의 첨부파일을 DB에서 삭제
+		//게시글에 있는 첨부파일 정보을 가져옴
+		//FileVO file = boardDao.selectFileByBo_num(num);
+		
+				
 		//같으면 게시글 삭제 후 삭제 여부를 반환
 		return boardDao.deleteBoard(num);
 	}
+
 	
+
 	@Override
-	public boolean updateBoard(BoardVO board, MemberVO user) {
+	public boolean updateBoard(BoardVO board, MemberVO user, ArrayList<Integer> nums, ArrayList<Part> fileList) {
 		if(user == null || user.getMe_id() == null) {
 			return false;
 		}
@@ -119,6 +136,17 @@ public class BoardServiceImp implements BoardService{
 		if(dbBoard == null || !dbBoard.getBo_me_id().equals(user.getMe_id())) {
 			return false;
 		}
+		
+		//첨부파일 추가
+		for(Part file : fileList) {
+			uploadFile(file, board.getBo_num());
+		}
+		//첨부파일 삭제
+		for(int fi_num : nums) {
+			FileVO fileVo = boardDao.selectFile(fi_num);
+			deleteFile(fileVo);
+		}
+		
 		//같으면 게시글 수정
 		return boardDao.updateBoard(board);
 	}
@@ -128,23 +156,34 @@ public class BoardServiceImp implements BoardService{
 		}
 		return true;
 	}
-	
 	private void uploadFile(Part filePart, int bo_num) {
-		if(filePart ==null) {
-			return;
+		//업로드할 첨부 파일이 없으면
+		if(filePart == null) {
+			return ;
 		}
 		String fileOriName = FileUploadUtils.getFileName(filePart);
-		if(!checkString(fileOriName)) {
+		if(fileOriName == null || fileOriName.length() == 0) {
 			return;
 		}
-		String fileName = FileUploadUtils.upload(uploadPath,filePart);
-		FileVO file = new FileVO(bo_num,fileName,fileOriName);
-		
+		String fileName = FileUploadUtils.upload(uploadPath, filePart);
+		FileVO file = new FileVO(bo_num, fileName, fileOriName);
 		boardDao.insertFile(file);
+	}
+	
+	private void deleteFile(FileVO fileVo) {
+		if(fileVo == null) {
+			return;
+		}
+		File file = new File(uploadPath 
+				+ fileVo.getFi_name().replace('/', File.separatorChar));
+		if(file.exists()) {
+			file.delete();
+		}
+		boardDao.deleteFile(fileVo.getFi_num());
 	}
 
 	@Override
-	public FileVO getFile(int num) {
+	public ArrayList<FileVO> getFile(int num) {
 		return boardDao.selectFileByBo_num(num);
 	}
 }
