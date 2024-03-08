@@ -65,7 +65,7 @@ public class BoardInsertServlet extends HttpServlet {
 		BoardVO board = new BoardVO(co_num, title, content, writer);
 		
 		//첨부파일을 가져옴
-		ArrayList<Part> partList = (ArrayList<Part>)request.getParts();
+		ArrayList<Part> partList = (ArrayList<Part>) request.getParts();
 		
 		//서비스에게 게시글을 주면서 등록하라고 시킴
 		if(boardService.insertBoard(board, partList)) {

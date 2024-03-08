@@ -17,6 +17,7 @@ import kr.kh.app.model.vo.BoardVO;
 import kr.kh.app.model.vo.CommunityVO;
 import kr.kh.app.model.vo.FileVO;
 import kr.kh.app.model.vo.MemberVO;
+import kr.kh.app.model.vo.RecommendVO;
 import kr.kh.app.pagination.Criteria;
 import kr.kh.app.utils.FileUploadUtils;
 
@@ -54,9 +55,8 @@ public class BoardServiceImp implements BoardService{
 		}
 		
 		//첨부파일 업로드
-		
 		for(Part filePart : partList) {
-			uploadFile(filePart, board.getBo_num());		
+			uploadFile(filePart, board.getBo_num());
 		}
 		return res;
 	}
@@ -105,14 +105,13 @@ public class BoardServiceImp implements BoardService{
 		}
 		
 		//게시글의 첨부파일을 서버 폴더에서 삭제(실제 파일)
-		ArrayList<FileVO>fileList = boardDao.selectFileByBo_num(num);
-		for(FileVO file : fileList) {
-			deleteFile(file);			
-		}
 		//게시글의 첨부파일을 DB에서 삭제
 		//게시글에 있는 첨부파일 정보을 가져옴
-		//FileVO file = boardDao.selectFileByBo_num(num);
+		ArrayList<FileVO> fileList = boardDao.selectFileByBo_num(num);
 		
+		for(FileVO file : fileList) {
+			deleteFile(file);
+		}
 				
 		//같으면 게시글 삭제 후 삭제 여부를 반환
 		return boardDao.deleteBoard(num);
@@ -141,6 +140,7 @@ public class BoardServiceImp implements BoardService{
 		for(Part file : fileList) {
 			uploadFile(file, board.getBo_num());
 		}
+		
 		//첨부파일 삭제
 		for(int fi_num : nums) {
 			FileVO fileVo = boardDao.selectFile(fi_num);
@@ -150,6 +150,40 @@ public class BoardServiceImp implements BoardService{
 		//같으면 게시글 수정
 		return boardDao.updateBoard(board);
 	}
+	
+	@Override
+	public ArrayList<FileVO> getFile(int num) {
+		return boardDao.selectFileByBo_num(num);
+	}
+
+	@Override
+	public int recommend(int bo_num, int state, MemberVO user) {
+		if(user == null) {
+			throw new RuntimeException();
+		}
+		//게시글 번호와 아이디를 주면서 추천 정보를 가져오라고 시킴
+		RecommendVO recommend = boardDao.selectRecommend(user.getMe_id(), bo_num);
+		//없으면 추가
+		if(recommend == null) {
+			recommend = new RecommendVO(user.getMe_id(), bo_num, state);
+			boardDao.insertRecommend(recommend);
+			return state;
+		}
+		//있으면 수정
+		else {
+			//기존 추천 상태와 state가 같으면 취소(0으로변경)
+			if(state == recommend.getRe_state()) {
+				recommend.setRe_state(0);
+			}
+			//다르면 state로 변경
+			else {
+				recommend.setRe_state(state);
+			}
+			boardDao.updateRecommend(recommend);
+			return recommend.getRe_state();
+		}
+	}
+	
 	private boolean checkString(String str) {
 		if(str == null || str.length() == 0) {
 			return false;
@@ -183,7 +217,12 @@ public class BoardServiceImp implements BoardService{
 	}
 
 	@Override
-	public ArrayList<FileVO> getFile(int num) {
-		return boardDao.selectFileByBo_num(num);
+	public RecommendVO getRecommend(MemberVO user, int num) {
+		if(user == null) {
+			return null;
+		}
+		return boardDao.selectRecommend(user.getMe_id(), num);
 	}
+
+	
 }
