@@ -19,10 +19,10 @@ import kr.kh.app.service.BoardServiceImp;
 
 @WebServlet("/board/insert")
 @MultipartConfig(
-		maxFileSize = 1024 * 1024 * 10, //10Mb
-		maxRequestSize = 1024 * 1024 * 10 * 3, //10Mb 최대 3개
-		fileSizeThreshold = 1024 * 1024 //1Mb : 파일 업로드 시 메모리에 저장되는 임시 파일 크기
-	)
+	maxFileSize = 1024 * 1024 * 10, //10Mb
+	maxRequestSize = 1024 * 1024 * 10 * 3, //10Mb 최대 3개
+	fileSizeThreshold = 1024 * 1024 //1Mb : 파일 업로드 시 메모리에 저장되는 임시 파일 크기
+)
 public class BoardInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -50,15 +50,23 @@ public class BoardInsertServlet extends HttpServlet {
 		//제목, 내용, 작성자, 게시판 번호를 이용하여 게시글 객체를 생성
 		BoardVO board = new BoardVO(title, content, writer, co_num);
 		//서비스에게 게시글 객체를 주면서 등록하라고 시킴
-		System.out.println(board);
 		
-		ArrayList<Part> partList = (ArrayList<Part>)request.getParts();
-
-		if(boardService.insertBoard(board, partList)) {
-			response.sendRedirect(request.getContextPath()+"/board/list");
-		}else {
-			response.sendRedirect(request.getContextPath()+"/board/insert");
+		//첨부파일들을 가져옴
+		ArrayList<Part> partList = (ArrayList<Part>) request.getParts();
+		
+		boolean res = boardService.insertBoard(board, partList);
+		//등록을 하면 화면에 msg로 게시글을 등록했습니다라고 전송
+		if(res) {
+			request.setAttribute("msg", "게시글을 등록했습니다.");
 		}
+		//등록하지 못하면 화면에 msg로 게시글을 등록하지 못했습니다라고 전송
+		else {
+			request.setAttribute("msg", "게시글을 등록하지 못했습니다.");
+		}
+		//화면에 url로 board/list를 전송
+		request.setAttribute("url", "board/list");
+		//message.jsp를 전송
+		request.getRequestDispatcher("/WEB-INF/views/message.jsp").forward(request, response);
 		
 	}
 

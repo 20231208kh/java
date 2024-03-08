@@ -30,6 +30,7 @@ public class BoardListServlet extends HttpServlet {
 		try {
 			page = Integer.parseInt(request.getParameter("page"));
 		}catch(Exception e) {
+			e.printStackTrace();
 			page = 1;
 		}
 		//type과 search와 page를 이용해서 Criteria 객체를 생성
