@@ -265,6 +265,20 @@ public class BoardServiceImp implements BoardService{
 		return boardDao.deleteComment(num);
 		
 		
+		
+	}
+	
+
+	@Override
+	public boolean updateComment(CommentVO comment) {
+		if(comment==null) {
+			return false;
+		}
+	
+		return boardDao.updateComment(comment);
+		
+		
+		
 	}
 
 	

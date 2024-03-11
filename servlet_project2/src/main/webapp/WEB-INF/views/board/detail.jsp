@@ -37,7 +37,7 @@
 			</div>
 			<div class="mb-3 mt-3">
 				<label for="content" class="form-label">내용</label>
-				<textarea rows="10" class="form-control" readonly>${board.bo_content }</textarea>
+				<div class="form-control" style="min-height: 400px">${board.bo_content }</div>
 			</div>
 			<c:if test="${fileList != null && fileList.size() != 0 }">
 				<div class="mb-3 mt-3">
@@ -52,6 +52,20 @@
 			<h1>없는 게시글이거나 삭제된 게시글입니다.</h1>
 		</c:otherwise>
 	</c:choose>
+	<div class="mb-3 mt-3 comment-box">
+				<h3>댓글</h3>
+				<div class="comment-list">
+			  		<div class="input-group mb-3">
+						<div class="col-3">abc123</div>
+						<div class="col-9">댓글 내용</div>
+					</div>	
+			  	</div>
+				<div class="comment-pagination">
+					<ul class="pagination justify-content-center">
+			  				
+			  		</ul>
+				</div>
+	</div>
 	<a href="<c:url value="/board/list"/>" class="btn btn-outline-primary">목록으로</a>
 	<c:if test="${user.me_id == board.bo_me_id }">
 		<a href="<c:url value="/board/delete?num=${board.bo_num }"/>" class="btn btn-outline-danger">삭제</a>
@@ -118,6 +132,88 @@
 			initBtn(".btn-down","btn-success","btn-outline-success");
 		</c:if>
 	</c:if>
+</script>
+<script type="text/javascript">
+	let cri = {
+			page : 1,
+			boNum : '${board.bo_num}'
+	}
+	displayCommentAndPagination(cri);
+	function displayCommentAndPagination(cri){
+		$.ajax({
+			url : '<c:url value="/comment/list"/>',
+			method : 'get',
+			data : cri,
+			success : function(data){
+				displayComment(data.list);
+				displayCommentPagination(data.pm);
+			},
+			error : function(xhr,status,error){
+				
+			}
+		})
+	}
+	
+	function displayComment(commentList){
+		let str = "";
+		for(comment of commentList){
+			let btns = '';
+			if('${user.me_id}'==comment.cm_me_id){
+				btns += 
+				`<div class="btn-comment-group">
+					<button class="btn btn-outline-warning btn-comment-update" data-num ="\${comment.cm_num}">수정</button>
+					<button class="btn btn-outline-danger btn-comment-delete" data-num ="\${comment.cm_num}">삭제</button>
+				</div>
+				`
+			}
+			str +=
+				`
+				<div class="input-group mb-3">
+					<div class="col-2">\${comment.cm_me_id}</div>
+					<div class="col-6">\${comment.cm_content}</div>
+					\${btns}
+				</div>
+				`
+		}
+		$(".comment-list").html(str);
+	}
+	
+	function displayCommentPagination(pm){
+		pm = JSON.parse(pm);
+		let pmStr = "";
+		//이전 버튼 활성화 여부
+		if(pm.prev){
+			pmStr += `
+			<li class="page-item">
+				<a class="page-link" href="javascript:void(0);" data-page="\${pm.startPage-1}">이전</a>
+			</li>
+			`;
+		}
+		//숫자 페이지
+		for(i = pm.startPage; i<= pm.endPage; i++){
+			let active = pm.cri.page == i ? "active" :"";
+			pmStr += `
+			<li class="page-item \${active}">
+				<a class="page-link" href="javascript:void(0);" data-page="\${i}">\${i}</a>
+			</li>
+			`
+		}
+		//다음 버튼 활성화 여부
+		if(pm.next){
+			pmStr += `
+			<li class="page-item">
+				<a class="page-link" href="javascript:void(0);" data-page="\${pm.endPage+1}">다음</a>
+			</li>
+			`;
+		}
+		$(".comment-pagination>ul").html(pmStr);
+	}
+	
+	$(document).on("click",".comment-pagination .page-link", function(){
+		cri.page = $(this).data("page");
+		displayCommentAndPagination(cri);
+	})
+	
 </script>
 </body>
 </html>

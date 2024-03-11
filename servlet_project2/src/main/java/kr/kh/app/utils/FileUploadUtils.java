@@ -18,6 +18,7 @@ public class FileUploadUtils {
 		for(String item : items) {
 			//item은 다음과 같은 형태로 구성
 			//속성명 = 값
+			//dd
 			if(item.trim().startsWith("filename")) {
 				return item.substring(item.indexOf("=") + 2,item.length() - 1);
 			}

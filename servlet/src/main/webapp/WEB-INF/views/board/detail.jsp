@@ -216,17 +216,18 @@ function getCommentList(cri){
 				let btns = '';
 				if('${user.me_id}'==comment.cm_me_id){
 					btns += 
-					`
-						<button class="btn btn-outline-warning btn-comment-update">수정</button>
+					`<div class="btn-comment-group">
+						<button class="btn btn-outline-warning btn-comment-update" data-num ="\${comment.cm_num}">수정</button>
 						<button class="btn btn-outline-danger btn-comment-delete" data-num ="\${comment.cm_num}">삭제</button>
+					</div>
 					`
 				}
 				
 				str +=
 				`
-				<div class="input-group mb-3">
+				<div class="input-group mb-3 box-comment">
 					<div class="col-2">\${comment.cm_me_id}</div>
-					<div class="col-6">\${comment.cm_content}</div>
+					<div class="col-6 cm_content">\${comment.cm_content}</div>
 					\${btns}
 				</div>
 				`;
@@ -302,6 +303,65 @@ $(document).on("click",".btn-comment-delete",function(){
 	
 });
 
+</script>
+
+<script type="text/javascript">
+$(document).on("click",".btn-comment-update", function(){
+	initComment();
+	$(this).parents(".box-comment").find(".cm_content").hide();
+	let comment = $(this).parents(".box-comment").find(".cm_content").text();
+	let textarea =
+	`
+	<textarea class="form-control com-input">\${comment}</textarea>
+	`
+	$(this).parents(".box-comment").find(".cm_content").after(textarea);
+	
+	$(this).parent().hide();
+	let num = $(this).data("num");
+	let btn =
+	`	
+	<button class="btn btn-outline-success btn-complete" data-num ="\${num}">수정완료</button>
+	`;
+	$(this).parent().after(btn);
+})
+function initComment(){
+	//감추었던 댓글	내용
+	$(".cm_content").show();
+	//감추었던 수정/삭제 버튼
+	$(".btn-comment-group").show();
+	//추가했던 댓글 textarea 삭제
+	$(".com-input").remove();
+	//추가했던 수정 완료 버튼을 삭제
+	$(".btn-complete").remove();
+}
+
+$(document).on("click",".btn-complete",function(){
+	let num = $(this).data("num");
+	let content = $(".com-input").val();
+	
+	$.ajax({
+		url :	'<c:url value="/comment/update"/>'	,
+		method : "post"	,
+		data :	{
+			num,
+			content
+		},
+		success : function(data){
+			if(data=="ok"){
+				cri.page = 1;
+				alert("댓글 수정 성공");
+				initComment();
+				getCommentList(cri)
+			}else{
+				alert("댓글 수정 실패");
+			}
+		},
+		error :	function(xhr, status, error){
+			
+		},
+		
+	});//ajax end
+});//click end
 </script>
 
 </body>

@@ -19,8 +19,8 @@
 			<input type="text" class="form-control" id="id" placeholder="아이디" name="id">
 		</div>
 		<div class="mb-3 mt-3">
-		    <button type="button" id="idCheck" class="btn btn-outline-success col-12">아이디 중복 검사</button>
-	  	</div>
+			<button type="button" class="btn btn-outline-success col-12" id="idCheck">아이디 중복 검사</button>
+		</div>
 		<div class="mb-3 mt-3">
 			<label for="pw" class="form-label">비번</label>
 			<input type="password" class="form-control" id="pw" placeholder="비번" name="pw">
@@ -36,10 +36,11 @@
 		<button type="submit" class="btn btn-outline-success col-12">회원가입</button>
 	</form>
 </div>
-<script src="//code.jquery.com/jquery-3.6.1.js"></script>
+<script src="//code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
 	let flag = false;
 	$("#idCheck").click(function(){
+		
 		let id = $("[name=id]").val();
 		$.ajax({
 			url : '<c:url value="/id/check"/>',
@@ -49,18 +50,17 @@
 				"id" : id
 			},
 			success : function(data){
-				if (data){
+				if(data){
 					alert("사용 가능한 아이디입니다.");
 					flag = true;
 				}else{
-					alert("이미 사용 중인 아이디입니다.");
+					alert("이미 사용중인 아이디입니다.");
 				}
 			},
 			error : function (a, b, c) {
 				console.error("예외 발생");
 			}
-			
-		}); //ajax end
+		});//ajax end
 		
 	});//click end
 	$("form").submit(function(){
@@ -68,14 +68,10 @@
 			alert("아이디 중복 검사를 해야합니다.");
 			return false;
 		}
-	});
+	})
 	$("[name=id]").change(function(){
 		flag = false;
 	})
-
-
-
-
 </script>
 </body>
 </html>
