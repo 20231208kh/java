@@ -14,10 +14,12 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import kr.kh.app.dao.BoardDAO;
 import kr.kh.app.model.vo.BoardVO;
+import kr.kh.app.model.vo.CommentVO;
 import kr.kh.app.model.vo.CommunityVO;
 import kr.kh.app.model.vo.FileVO;
 import kr.kh.app.model.vo.MemberVO;
 import kr.kh.app.model.vo.RecommendVO;
+import kr.kh.app.pagination.CommentCriteria;
 import kr.kh.app.pagination.Criteria;
 import kr.kh.app.utils.FileUploadUtils;
 
@@ -140,18 +142,18 @@ public class BoardServiceImp implements BoardService {
 		if(dbBoard == null || !dbBoard.getBo_me_id().equals(user.getMe_id())) {
 			return false;
 		}
-		
-		//삭제할 첨부파일 삭제
-		for(String numStr : nums) {
-			try {
-				int num = Integer.parseInt(numStr);
-				FileVO fileVo = boardDao.selectFile(num);
-				deleteFile(fileVo);
-			}catch(Exception e) {
-				e.printStackTrace();
+		if(nums != null) {
+			//삭제할 첨부파일 삭제
+			for(String numStr : nums) {
+				try {
+					int num = Integer.parseInt(numStr);
+					FileVO fileVo = boardDao.selectFile(num);
+					deleteFile(fileVo);
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
-		
 		//추가할 첨부파일 추가
 		for(Part part : partList) {
 			uploadFile(part, board.getBo_num());
@@ -234,6 +236,24 @@ public class BoardServiceImp implements BoardService {
 			return null;
 		}
 		return boardDao.selectRecommend(num, user.getMe_id());
+	}
+
+	@Override
+	public ArrayList<CommentVO> getCommentList(CommentCriteria cri) {
+		//현재 페이지정보 null 처리 
+		if(cri == null) {
+			cri = new CommentCriteria();
+		}
+		return boardDao.selectCommentList(cri);
+	}
+
+	@Override
+	public int getTotalCountComment(CommentCriteria cri) {
+		if(cri == null) {
+			cri = new CommentCriteria();
+		}
+		return boardDao.selectTotalCountComment(cri);
+		
 	}
 	
 }
