@@ -10,32 +10,31 @@
 	<title>스프링 - 회원가입</title>
 </head>
 <body>
-<div class="container">
-	<form action="<c:url value="/signup"/>" method="post">
-		<h1>회원가입</h1>
-		<div class="form-group">
-			<label for="id">아이디</label>
-			<input type="text" class="form-control" id="id" name="me_id">
-			<label id="id-error" class="error text-danger" for="id"></label>
-		</div>
-		<div class="form-group">
-			<label for="pw">비번</label>
-			<input type="password" class="form-control" id="pw" name="me_pw">
-			<label id="pw-error" class="error text-danger" for="pw"></label>
-		</div>
-		<div class="form-group">
-			<label for="pw2">비번확인</label>
-			<input type="password" class="form-control" id="pw2" name="me_pw2">
-			<label id="pw2-error" class="error text-danger" for="pw2"></label>
-		</div>
-		<div class="form-group">
-			<label for="email">이메일</label>
-			<input type="text" class="form-control" id="email" name="me_email">
-			<label id="email-error" class="error text-danger" for="email"></label>
-		</div>
-		<button class="btn btn-outline-success col-12">회원가입</button>
-	</form>
-</div>
+<form action="<c:url value="/signup"/>" method="post">
+	<h1>회원가입</h1>
+	<div class="form-group">
+		<label for="id">아이디</label>
+		<input type="text" class="form-control" id="id" name="me_id">
+		<label id="id-error" class="error text-danger" for="id"></label>
+	</div>
+	<div class="form-group">
+		<label for="pw">비번</label>
+		<input type="password" class="form-control" id="pw" name="me_pw">
+		<label id="pw-error" class="error text-danger" for="pw"></label>
+	</div>
+	<div class="form-group">
+		<label for="pw2">비번확인</label>
+		<input type="password" class="form-control" id="pw2" name="me_pw2">
+		<label id="pw2-error" class="error text-danger" for="pw2"></label>
+	</div>
+	<div class="form-group">
+		<label for="email">이메일</label>
+		<input type="text" class="form-control" id="email" name="me_email">
+		<label id="email-error" class="error text-danger" for="email"></label>
+	</div>
+	<button class="btn btn-outline-success col-12">회원가입</button>
+</form>
+
 <script type="text/javascript">
 $("form").validate({
 	rules : {

@@ -25,7 +25,7 @@ public class HomeController {
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String signup(Model model) {
 
-		return "member/signup";
+		return "/member/signup";
 	}
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
@@ -43,7 +43,7 @@ public class HomeController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
 
-		return "member/login";
+		return "/member/login";
 	}
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginPost(Model model, LoginDTO loginDto) {
