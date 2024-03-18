@@ -1,5 +1,8 @@
 package kr.kh.grade.service;
 
-public class ManagerServiceImp {
+import org.springframework.stereotype.Service;
+
+@Service
+public class ManagerServiceImp implements ManagerService {
 
 }
