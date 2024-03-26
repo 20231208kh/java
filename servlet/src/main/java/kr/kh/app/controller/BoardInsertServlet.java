@@ -61,7 +61,14 @@ public class BoardInsertServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String writer = user.getMe_id();
-		int co_num = Integer.parseInt(request.getParameter("community"));
+		int co_num = 0;
+		try {
+			co_num = Integer.parseInt(request.getParameter("community"));
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(co_num);
+		
 		BoardVO board = new BoardVO(co_num, title, content, writer);
 		
 		//첨부파일을 가져옴
