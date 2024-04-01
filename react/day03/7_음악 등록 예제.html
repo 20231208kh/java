@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+    
+	const root = ReactDOM.createRoot(document.getElementById('root'));
+
+	function App(){
+        
+        let [genre,setGenre] = React.useState("");
+        let [title,setTitle] = React.useState("");
+        let [singer,setSinger] = React.useState("");
+        let [list, setList] = React.useState([]);
+
+        function insertMusic(){
+            let music = {
+                genre,
+                title,
+                singer
+            }
+
+            setList([music, ...list]);
+            setGenre("")
+            setTitle("")
+            setSinger("")
+        }
+
+        function deleteMusic(index){
+            let tmpList = [...list];
+            tmpList.splice(index,1);
+            setList(tmpList);
+
+        }
+
+		return (
+            <div>
+                <h1>음악</h1>
+                <div>
+                    <label htmlFor="">장르</label>
+                    <input type="text" onChange={(e)=>{setGenre(e.target.value)}} value={genre}/>
+                </div>
+                <div>
+                    <label htmlFor="">제목</label>
+                    <input type="text" onChange={(e)=>{setTitle(e.target.value)}} value={title}/>
+                </div>
+                <div>
+                    <label htmlFor="">가수</label>
+                    <input type="text" onChange={(e)=>{setSinger(e.target.value)}} value={singer}/>
+                </div>
+                <button onClick={insertMusic}>등록하기</button>
+                <br/>
+                <h1>등록된 음악</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>장르</th>
+                            <th>제목</th>
+                            <th>가수</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {list.map((item,index)=>{
+                            return(
+                            <tr key={index}>
+                                <td>{item.genre}</td>
+                                <td>{item.title}</td>
+                                <td>{item.singer}</td>
+                                <td>
+                                    <button onClick={()=>deleteMusic(index)}>삭제</button>
+                                </td>
+                            </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </div>
+		);
+	};
+
+	root.render(<App />);
+</script>
+</body>
+</html>

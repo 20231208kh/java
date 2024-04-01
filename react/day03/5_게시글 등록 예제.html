@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+    
+	const root = ReactDOM.createRoot(document.getElementById('root'));
+    /*
+    function Board([list]){
+        return(
+           
+            <table>
+                <thead>
+                    <tr>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                        <th>내용</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {list.map((item,index)=>{
+                        return(
+                            <tr key={index}>
+                                <td>{item.title}</td>
+                                <td>{item.writer}</td>
+                                <td>{item.date}</td>
+                                <td>{item.content}</td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </table>
+           
+        );
+    };
+    */
+
+
+	function App(){
+        let [title,setTitle] = React.useState("")
+        let [writer,setWriter] = React.useState("")
+        let [date, setDate] = React.useState("")
+        let [content, setContent] = React.useState("")
+        let [list, setList] = React.useState([])
+
+        function insertBoard(){
+            let board ={
+                title,
+                writer,
+                date,
+                content
+            }
+            setList([board, ...list]);
+        }
+
+        
+        function deleteBoard(index){
+            let tmpList =[...list];
+            tmpList.splice(index,1);
+            setList(tmpList);
+            
+        }
+        
+
+      
+
+		return (
+            <div>
+                <div>
+                    <label htmlFor="">제목</label>
+                    <input type="text" onChange={(e)=>{setTitle(e.target.value)}}/>
+                </div>
+                <div>
+                    <label htmlFor="">작성자</label>
+                    <input type="text" onChange={(e)=>{setWriter(e.target.value)}}/>
+                </div>
+                <div>
+                    <label htmlFor="">작성일</label>
+                    <input type="date" onChange={(e)=>{setDate(e.target.value)}}/>
+                </div>
+                <div>
+                    <label htmlFor="">내용</label>
+                    <textarea onChange={(e)=>{setContent(e.target.value)}}></textarea>
+                </div>
+                <button onClick={insertBoard}>글 등록</button>
+                <table>
+                <thead>
+                    <tr>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                        <th>내용</th>
+                        <th>비고</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {list.map((item,index)=>{
+                        return(
+                            <tr key={index}>
+                                <td>{item.title}</td>
+                                <td>{item.writer}</td>
+                                <td>{item.date}</td>
+                                <td>{item.content}</td>
+                                <td>
+                                    <button onClick={()=>deleteBoard(index)}>삭제</button>
+                                </td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </table>
+                
+            </div>
+		);
+	};
+
+	root.render(<App />);
+</script>
+</body>
+</html>

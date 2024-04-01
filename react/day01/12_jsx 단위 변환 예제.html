@@ -11,14 +11,29 @@
 <body>
 <div id="root"></div>
 <script type="text/babel">
-    
 	const root = ReactDOM.createRoot(document.getElementById('root'));
 
 	function App(){
-        
+
+        let [data,setData] = React.useState("");
+		let [time, setTime] = React.useState(0);
+        function inputChange(e){
+            setData(e.target.value);
+        }
+        function buttonOnClick(){
+            setTime(data);
+            
+            
+        }
+		
 		return (
             <div>
-
+                <input type="text" onChange={inputChange} />
+                <button onClick={buttonOnClick}>변환</button>
+                <br/>
+                <input type="text" readonly value={Math.floor(time/60)}/>시간
+                <br/>
+                <input type="text" readonly value={time%60}/>분
             </div>
 		);
 	};

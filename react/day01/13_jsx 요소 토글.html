@@ -11,19 +11,27 @@
 <body>
 <div id="root"></div>
 <script type="text/babel">
-    
 	const root = ReactDOM.createRoot(document.getElementById('root'));
 
 	function App(){
-        
+
+        let [flag, setFlag] = React.useState(true);
+
+        function onClick(){
+            setFlag(!flag);
+        }
+
 		return (
             <div>
-
+             <input type="text" disabled={flag}/>
+             <button onClick={onClick}>토글</button>
+             <br/>
+             <input type="text" disabled={!flag}/>
             </div>
+            
 		);
 	};
 
 	root.render(<App />);
 </script>
-</body>
 </html>

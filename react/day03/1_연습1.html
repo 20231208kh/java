@@ -7,6 +7,19 @@
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
 	<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+
+    .text-red{
+        color:red;
+    }
+    .text-blue{
+        color:blue;
+    }
+    .text-green{
+        color:green;
+    }
+</style>
+
 </head>
 <body>
 <div id="root"></div>
@@ -15,13 +28,29 @@
 	const root = ReactDOM.createRoot(document.getElementById('root'));
 
 	function App(){
-        
+        let[color,setColor] = React.useState("black");
+        console.log({color})
+
 		return (
             <div>
+                <h1 className={color}>안녕하세요</h1>
+                
+                <button onClick={()=>{setColor("text-red")}}>빨간색</button>
+                <button onClick={()=>{setColor("text-blue")}}>파란색</button>
+                <button onClick={()=>{setColor("text-green")}}>녹색</button>
+            
 
             </div>
 		);
 	};
+
+    function Btn({text}){
+        
+        return(
+            <button>{text}</button>
+        )
+    }
+
 
 	root.render(<App />);
 </script>

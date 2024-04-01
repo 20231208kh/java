@@ -11,17 +11,27 @@
 <body>
 <div id="root"></div>
 <script type="text/babel">
-    
+
 	const root = ReactDOM.createRoot(document.getElementById('root'));
 
 	function App(){
         
 		return (
             <div>
-
+                <Btn1 text={"추가"}/>
+                <Btn1 text={"삭제"}/>
             </div>
 		);
 	};
+
+
+    function Btn1(props){
+       return (<button>{props.text}</button>);
+    }
+
+    function Btn2({}){
+        return(<button></button>);
+    }
 
 	root.render(<App />);
 </script>

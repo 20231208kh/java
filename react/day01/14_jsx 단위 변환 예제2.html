@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+	const root = ReactDOM.createRoot(document.getElementById('root'));
+
+	function App(){
+        //분창이 활성화 되면 분을 입력했을 때 시간으로 변환을 하고
+        //시간 창이 활성화 되면 시간을 입력했을 때 분으로 변환하는 코드
+
+        let [data,setData] = React.useState(0);
+		let [flag, setFlag] = React.useState(false);
+
+        function inputChange(e){
+            setData(e.target.value);
+        }
+        function buttonOnClick(){
+            setFlag(!flag);
+            setData(0);
+            
+        }
+		
+		return (
+            <div>
+                <input type="text" onChange={inputChange} disabled={flag} value={!flag?data:data*60} />분
+
+                <button onClick={buttonOnClick}>토글</button>
+                <br/>
+                
+                <input type="text" onChange={inputChange} disabled={!flag} value={!flag?Math.floor(data/60):data}/>시간
+                <br/>
+            </div>
+		);
+	};
+
+	root.render(<App />);
+</script>
+</body>
+</html>
