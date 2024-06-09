@@ -1,0 +1,34 @@
+package project1.board.service;
+
+
+import java.util.ArrayList;
+
+import project1.board.model.vo.MemberVO;
+
+public interface MemberService {
+
+	MemberVO login(MemberVO memberVo);
+
+	boolean signIn(MemberVO member);
+
+	boolean updateAge(MemberVO memberVo, int updateAge);
+
+	boolean updateEmail(MemberVO memberVo, String updateEmail);
+
+	boolean updatePw(MemberVO memberVo, String updatePw);
+
+	boolean deleteMember(MemberVO memberVo);
+
+<<<<<<< Updated upstream
+	MemberVO getMember(MemberVO memberVo);
+=======
+
+	ArrayList<MemberVO> getMember();
+
+	boolean updateMemberRight(String id);
+>>>>>>> Stashed changes
+
+
+
+}
+
