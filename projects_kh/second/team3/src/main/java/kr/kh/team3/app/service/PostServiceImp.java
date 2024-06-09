@@ -251,7 +251,7 @@ public class PostServiceImp implements PostService {
 	}
 
 	@Override
-	public ArrayList<CommentVO> getMyCommentPostList(Criteria cri) {
+	public ArrayList<MyCommentVO> getMyCommentPostList(Criteria cri) {
 		if(cri == null) {
 			cri = new Criteria();
 		}

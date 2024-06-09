@@ -78,7 +78,7 @@ public interface PostDAO {
 
 	//ArrayList<CommentVO> selectMyCommentList(@Param("me_id")String me_id);
 	
-	ArrayList<CommentVO> selectMyCommentPostList(@Param("cri")Criteria cri);
+	ArrayList<MyCommentVO> selectMyCommentPostList(@Param("cri")Criteria cri);
 
 	int selectMyCommentPostTotalCount(@Param("cri")Criteria cri);
 
