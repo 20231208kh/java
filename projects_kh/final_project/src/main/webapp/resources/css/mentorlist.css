@@ -1,0 +1,142 @@
+@charset "UTF-8";
+/* 메뉴 창 전체 영역 */
+.menu-bar{display: block;  fiex-direction:column; 
+ align-items: center; margin: 20px 0px;}
+#searchForm{width: 100%; }
+
+/* 멘토/멘토링 신청 버튼 영역 */
+.mentor-insert{
+	width: 100%; display: flex; justify-content: flex-end; margin-bottom: 20px;
+}
+
+.btn-mentor-insert{
+	display:flex;align-content:center;
+	border: 2px solid #8fa78f;
+	width:120px; height:35px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	border-radius: 4px;
+	color: #8fa78f;
+    font-weight: bold;
+}
+
+.btn-mentor-insert:hover {
+    background-color: #8fa78f;
+    border:none;
+    text-decoration: none;
+}
+
+.btn-mentor-insert:active {
+    background-color: #8fa78f;
+    border:none;text-decoration: none;
+}
+.btn-mentor-mentoring-insert{
+	display:flex;align-content:center;
+	border: 2px solid #8fa78f;
+	width:120px; height:35px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	border-radius: 4px;
+	color: #8fa78f;
+    font-weight: bold;
+}
+
+.btn-mentor-mentoring-insert:hover {
+    background-color: #8fa78f;
+    border:none;
+    text-decoration: none;
+}
+
+.btn-mentor-mentoring-insert:active {
+    background-color: #8fa78f;
+    border:none;text-decoration: none;
+}
+
+	/* 검색 창 */
+#input-group{width:50%; margin: 0 auto;}
+#mento-totalsearch{ 
+	 border-radius: 5px 0 0 5px; height: 45px;
+	border: none; background-color: #BAC9BA; 
+}
+#mento-totalsearch-btn{ 
+	color: #ededed; border:none; padding: 6px 8px; height: 45px;
+	border-radius: 0 5px 5px 0; border-left: none; background-color: #BAC9BA; 
+}
+	/* 체크박스 */
+#check-group{
+	margin:30px 15% 0; display: flex; flex-direction: row; justify-content: space-between; 
+}
+
+/*리스트*/
+.mento-list{width: 100%; display: inline-block;}
+.mento-list>h3{text-align: center; margin: 20px 0;}
+.mento-item{
+	width:250px; height:300px; border: 1px solid black; border-radius: 30px; list-style : none;
+	display: inline-block; margin: 10px; padding: 20px;   text-decoration: none; 
+}
+ .memberNickname{
+ 	width : 100px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+ }
+
+.mento-item:hover{
+ 	text-decoration: none; cursor: pointer;
+}
+.box-mento-list li{list-style : none; text-decoration: none; color:black; }
+
+/* 멘토링 정보 */
+.mento-list-item-content{height: 210px; padding-top: 10px;}
+.mento-list-item-content h3{height: 100px; }
+.mento-list-item-content div{height: 40px;}
+
+.mento-list-item-title{
+	white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden
+ }
+/* 구분선 */
+.box-border-line{display:flex; justify-content:center;}
+.border-line{ border: 1px solid #ccc; height: 1px; width: 220px; margin: 5px;}
+
+/* 멘토 정보 */
+.mento-list-item-memberInfo > div{display: inline-block; }
+.mentoSituation{display:flex; float: right;}
+
+
+/* 버튼 */
+.btn-apply{
+	background-color: white; border: 1px solid #808080; 
+	border-radius: 5px; padding: 2px 5px; 
+}
+
+.btn-apply-prev{
+	background-color: white; border: 1px solid #808080; 
+	border-radius: 5px; padding: 2px 5px; margin-right: 10px;
+}
+.btn-apply-insert{
+	background-color: white; border: 1px solid #808080; 
+	border-radius: 5px; padding: 2px 5px; 
+}
+
+/* 페이지네이션 */
+.page-item.active .page-link{
+	background-color: #8fa78f;
+    border-color: #8fa78f;
+	
+}
+.page-link {
+  color: #8fa78f;
+  }
+	  
