@@ -1,0 +1,8 @@
+https://mvnrepository.com/artifact/org.json/json/20240205
+https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind/2.17.0
+https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core/2.17.0
+https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations/2.17.0
+https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.32
+https://mvnrepository.com/artifact/org.mybatis/mybatis/3.5.14
+https://mvnrepository.com/artifact/javax.servlet/jstl/1.2
+https://dev.mysql.com/downloads/connector/j/
