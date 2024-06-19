@@ -279,23 +279,13 @@
 		  Kakao.API.request({
 		    url: '/v2/user/me',
 		    success: function (res) {
-		      // 아이디, 이메일
-		      //그 외 동의 정보는 res.kakao_account.속성명을 통해 가져올 수 있다
-		      //console.log(res.kakao_account);//에서 필요한 정보를 확인
-		      //아이디는 발급 받은 앱키마다 다르므로 중간에 앱키를 바꾸면 같은 카카오 계정이지만
-		      //다른 아이디값이 나옴. 주의!
 		      console.log(res.kakao_account);
 		      var email = res.kakao_account.email;
 		      var sns = "kakao"; //다른 sns 로그인을 위한 작업
 		      var phone = res.kakao_account.phone_number;
 		      var name = res.kakao_account.name;
-
-		      console.log(email);
-		      console.log(sns);
-		      console.log(phone);
-		      console.log(name);
 		      
-		      //카카오 로그인 
+		      //간편 로그인 
 		      switch(checkMember(sns,email)){
 			      case 1 : snsLogin(sns,email); break;
 			      case 2:  

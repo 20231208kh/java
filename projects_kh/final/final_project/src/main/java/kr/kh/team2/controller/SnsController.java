@@ -30,15 +30,10 @@ public class SnsController {
 		
 		return res;
 		
-		// return : 
-		
-		// 있어서 로그인 하는경우(본인인경우)
-		// 없어서 회원가입해야하는경우
-		// 다른 sns로 이미 회원가입되어있는경우 
 		
 		
 	}
-	
+	//sns 회원가입
 	@ResponseBody
 	@PostMapping("/sns/{sns}/signup")
 	public boolean snsSignup(@PathVariable("sns")String sns, 
@@ -56,7 +51,7 @@ public class SnsController {
 		
 		return res;
 	}
-	
+	//sns 로그인
 	@ResponseBody
 	@PostMapping("/sns/{sns}/login")
 	public boolean snsLogin(@PathVariable("sns")String sns, @RequestParam("email")String email, HttpSession session) {
